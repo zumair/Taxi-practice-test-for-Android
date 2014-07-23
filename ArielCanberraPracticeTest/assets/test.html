@@ -1,0 +1,406 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<style type="text/css">
+.error {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #F78181;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+
+.msg {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: normal;
+}
+
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+</style>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+
+<script type="text/javascript">
+	var routes = [
+
+			[ "City main to ADFA", "Limestone,Fairbairn,Northcott" ],
+			[ "City main to Ainslie Shops", "Torrens,Ipima,Cowper Cox" ],
+			[ "City main to Airport", "Ainslie,Limestone,Fairbairn" ],
+			[ "City main to Duffy Shops","Commonwealth, Adelaide, Cotter Rd, Burrinjuck" ],
+			[ "City main to Canberra Hospital", "Commonwealth, Adelaide, Yarra Glen"],
+			[ "City main to Fyshwick Post Office", "Parkes Way, Monaro Highway, New Castle"],
+			[ "City main to Melba Shops", "Barry, Belconnen, Heydon, Ginninderra"],
+			[ "City main to Hackett Shops", "Torrens, Limestone, Majura, Stott, Maitland"],
+			[ "City main to Queanbeyan Post Office", "Commonwealth, King Edward, Wentworth, Canberra"],
+			[ "City main to Kambah Shops", "Parkes Way, Tuggeranong Parkway, Marconi"],
+			[ "City main to Red Hill Shops", "Commonwealth, Capital, Hobart, Monaro cir"],
+			[ "City main to Kingston Railway Station", "Commonwealth, King Edward, Wentworth"],
+			[ "City main to Yarralumla Shops", "Commonwealth, Forster, Empire, Arkana, Schlich"],
+			[ "City main to Woden Rank", "Commonwealth, Adelaide, Yamba"],
+			
+			[ "Manuka Rank to City main Rank", "Canberra, State, Commonwealth"],
+			[ "Manuka Rank to Ainslie Shops", "Canberra, Telopea, Bowen, Kings, Anzac, Quick, Cambell"],
+			[ "Manuka Rank to Belconnen Mall", "State, Commonwealth, Parkes, Clunies Ross, Barry Drv"],
+			[ "Manuka Rank to Duffy Shops", "Canberra, Adelaide, Cotter Rd, Burrinjuck"],
+			[ "Manuka Rank to Canberra Hospital", "La Perouse, Hindmarsh"],
+			[ "Manuka Rank to Gunghalin Market Place", "Canberra, State, Commonwealth, Northbourne, Flemington"],
+			[ "Manuka Rank to Garran Shops", "Arthur Circle, Mugga, Kent, Kitchener"],
+			[ "Manuka Rank to Red Hill Shops", "Arthur, Monaro Cir"],
+			[ "Manuka Rank to Parliament House", "Canberra, State, Kings"],
+			[ "Manuka Rank to Woden Rank", "Arthur Circle, Mugga, Kent"],
+			[ "Manuka Rank to Kingston Railway Station", "Canberra, Bruke"],
+			[ "Manuka Rank to Yarralumla Shops", "Canberra, Adelaide, Hopetoun, Weston"],
+			
+			[ "Woden Rank to City Main Rank", "Launceston, Melrose, Yarra Glen, Commonwealth"],
+			[ "Woden Rank to Deakin Shops", "Launceston, Wisdom"],
+			[ "Woden Rank to Fyshwick Post Office", "Hindmarsh, New Castle"],
+			[ "Woden Rank to Kambah Village", "Hindmarsh, Drakeford"],
+			[ "Woden Rank to Queanbeyan Post Office", "Callum, Hindmarsh, Canberra"],
+			[ "Woden Rank to Yarralumla Shops", "Launceston, wisdom, Kent"],
+			[ "Woden Rank to Canberra Hospital", "Hindmarsh, Palmer"],
+			[ "Woden Rank to Duffy Shops", "Hindmarsh, Dixon"],
+			[ "Woden Rank to Narrabundah Shops", "Hindmarsh, Goyder, Lumeah"],
+			[ "Woden Rank to Manuka", "Hindmarsh, Tamar, Mugga, Flinders"],
+			[ "Woden Rank to Weston Primary School", "Launceston, Devonport"],
+			[ "Woden Rank to Gunghalin Market Place", "Yarra Glen, Carruthers, McCulloch, Landy Denman, Gunghalin Drive"],
+			
+			[ "Airport to Belconnen Town Center", "Fairbairn, Limestone, Macarthur"],
+			[ "Airport to Canberra Hospital", "Monaro, Hindmarsh"],
+			[ "Airport to Duffy Shops", "Kings Ave, Cotter Rd"],
+			[ "Airport to Hackett Shops", "Fairbairn, Limestone, Majura, Stott"],
+			[ "Airport to Lovett Tower Woden", "Kings, Adelaide, Melrose"],
+			[ "Airport to Queanbeyan Post Office", "Pialligo, Yass, Monaro"],
+			[ "Airport to Rydges Lakeside", "Morshead, Parkes Way"],
+			[ "Airport to Wanniassa Shops", "Monaro, Hindmarsh, Yamba, Beasley, Athllon"],
+			[ "Airport to Gunghalin Market Place", "Majura Rd, Horsepark Dve, Mapleton, Flemington"],
+			[ "Airport to Curtin Shops", "Kings, Adelaide, Carruthers"],
+			[ "Airport to Evatt Shops", "Fairbairn, Limestone, Ginninderra, William Webb"],
+			[ "Airport to Gordon", "Monaro, Tharwa"],
+			[ "Airport to Manuka Shops", "Kings, Bowen, Telopea"],
+			[ "Airport to O'Conner Shops", "Fairbairn, Limestone, Ipima"],
+			[ "Airport to Kingston Railway Station", "Monaro, Ipswich, Canberra"],
+			[ "Airport to Southlands Shopping Centre", "Monaro, Hindmarsh, Yamba, Mawson Dve"],
+			[ "Airport to Tuggeranong Town Centre", "Monaro, Isabella Dve"],
+			[ "Airport to Cooleman Court Weston", "Kings, Adelaide, Cotter, Streeton Dve"],
+			
+			[ "Belconnen to City Main Rank", "Chandler, Belconnen, Barry"],
+			[ "Belconnen to Curtin Shops", "Chandler, Bindubi, Lady Denman"],
+			[ "Belconnen to Dickson Shops", "Emmu Bank, Ginninderra, Mouatt"],
+			[ "Belconnen to Duffy Shops", "Luxton, Coulter, Coppins Crossing, "],
+			[ "Belconnen to EPIC", "Chandler, Aikman, Ginninderra, Mouat, Northbourne"],
+			[ "Belconnen to Giralang Shops", "Chandler, Aikman, Ginninderra William Slim"],
+			[ "Belconnen to Lyneham Shops", "Chandler, Belconnen, Banksia"],
+			[ "Belconnen to Kambah Post Office", "Chandler, Bindubi, Tuggeranong Parkway"],
+			[ "Belconnen to Mitchell", "Chandler, Ginnenderra, Gungahlin Dve, Sanford Dve"],
+			[ "Belconnen to Ainslie Shops", "Chandler, Belconnen, Macarthur, Wakefield"],
+			[ "Belconnen to Gunghalin Market Place", "Chandler, Ginnenderra, Gunghalin Dve"],
+			[ "Belconnen to Spence Shops", "Joynton-Smith, Ginnenderra, Copland, Alpen, Clarey"],
+			
+			[ "Tuggeranong Rank to Airport", "Isabella Dve, Monaro Highway"],
+			[ "Tuggeranong Rank to Canberra Hospital", "Athllon, Beasley, Yamba"],
+			[ "Tuggeranong Rank to Woden Plaza", "Athllon, Callam"],
+			[ "Tuggeranong Rank to Parliament House", "Athlon, Melrose, Adelaide"],
+			[ "Tuggeranong Rank to City", "Athllon, Melrose, Adelaide"],
+			[ "Tuggeranong Rank to Queanbeyan", "Isabella, Monaro, Lanyon Dve"],
+			
+			[ "Gunghalin Rank to City", "Hibberson, Flemington, Northbourne"],
+			[ "Gunghalin Rank to Calvary Hospital", "Gunghalin, Belconnen, Haydon"],
+			[ "Gunghalin Rank to Airport", "Flemington, Mapleton, Horsepark Dve, Majura Rd"],
+			[ "Gunghalin Rank to Kippax Centre, Holt", "Gundaroo, William Slim, Ginninderra, Kingsford Smith, Southern Cross"]
+			
+			
+	];
+
+	var pointerOfQuestion = -1;
+
+	jQuery.fn.nextQuestion = function(params) {
+		var questionNumberTextFieldValue = $('#questionNumberTextField').val();
+		var needToCheckAnswer  = $(this).attr('needToCheckAnswer');
+		if (questionNumberTextFieldValue.length != 0) {
+			//If we are not running first time then answer cannot be blank.
+			if(needToCheckAnswer === 'true'){
+				var result = $(this).checkAnswer();
+				if (result != true) {
+					return;
+				}
+			}
+
+			//Have we reached to the end of test
+			if ((pointerOfQuestion + 1) === routes.length) {
+				alert('Test completed !');
+				pointerOfQuestion = -1;
+			}
+		}
+
+		pointerOfQuestion = pointerOfQuestion + 1;
+		$('#questionNumberTextField').val(pointerOfQuestion + 1);
+
+		var nextQuestionToPrint = routes[pointerOfQuestion][0];
+		$('#questionLabelSpan').html('');
+		$('#questionLabelSpan').html(nextQuestionToPrint);
+
+		var remainingQuestions = (routes.length - (pointerOfQuestion + 1));
+		$('#remainingQuestionsTextField').val(remainingQuestions);
+
+	}
+
+	jQuery.fn.checkAnswer = function(params) {
+		var answer = $('#answerTextField').val();
+		$('#messageSpan').removeClass('error');
+		$('#messageSpan').removeClass('msg');
+		if (answer.length != 0) {
+			var actualAnswer = routes[pointerOfQuestion][1];
+			if (actualAnswer.toUpperCase() === answer.toUpperCase()) {
+				$('#messageSpan').html('');
+				$('#answerTextField').val('');
+				return true;
+			} else {
+				$('#messageSpan').addClass('error');
+				$('#messageSpan').html('Wrong! ');
+			}
+		} else {
+			$('#messageSpan').addClass('msg');
+			$('#messageSpan').html('You have to choose an answer! ');
+		}
+		return false;
+	}
+
+	jQuery.fn.clearAnswer = function(params) {
+		$('#messageSpan').removeClass('error');
+		$('#messageSpan').removeClass('msg');
+		$('#messageSpan').html('');
+		$('#answerTextField').val('');
+	}
+
+	jQuery.fn.showAnswer = function(params) {
+		$('#messageSpan').removeClass('error');
+		$('#messageSpan').removeClass('msg');
+
+		var actualAnswer = routes[pointerOfQuestion][1];
+		$('#messageSpan').addClass('msg');
+		$('#messageSpan').html(actualAnswer);
+	}
+
+	$(document).ready($(function() {
+
+		var answers = [];
+		for (index = 0; index < routes.length; index++) {
+			answers[index] = routes[index][1];
+		}
+
+		$("#answerTextField").autocomplete({
+			source : answers
+		});
+
+		$(document).nextQuestion();
+
+	}));
+</script>
+
+</head>
+<body>
+	<div class="container">
+
+		<br />
+		<p align="center"> 
+		
+		</p>
+		<table border="0" class="form-signin">
+			<tr>
+				<td>Question: <input class="form-control"
+					id="questionNumberTextField" type="text" name="questionNumber" />
+				</td>
+				<td>&nbsp;</td>
+				<td>Remaining: <input class="form-control"
+					id="remainingQuestionsTextField" type="text"
+					name="remainingQuestions" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+				&nbsp; 
+				<br/>
+				</td>
+				
+			</tr>
+			<tr>
+				<td colspan="3" align="center">
+					<span id="messageSpan">&nbsp;</span>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="3">
+				&nbsp; 
+				<br/>
+				</td>
+				
+			</tr>
+
+			
+
+			<tr>
+				<td colspan="3">
+				&nbsp; 
+				<br/>
+				</td>
+				
+			</tr>
+			<tr>
+				<td colspan="3">
+				<font style="font-weight:bold">
+				Question:
+				</font>
+				<span
+					id="questionLabelSpan"> </span>
+				</td>
+				
+			</tr>
+
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+
+
+			<tr>
+				<td colspan="3">
+				<font style="font-weight:bold">
+				Choose an answer:
+				</font>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="3">
+				&nbsp; 
+				<br/>
+				</td>
+				
+			</tr>
+			
+			<tr>
+				<td colspan="3">
+				(You need to type first word)
+				</td>
+				
+			</tr>
+			<tr>
+				<td colspan="3">
+				&nbsp; 
+				<br/>
+				</td>
+				
+			</tr>
+			<tr>
+				<td colspan="3">
+				<input id="answerTextField"	class="form-control" type="text" size="100" /></td>
+			</tr>
+
+			<tr>
+				<td colspan="3">&nbsp;</td>
+
+			</tr>
+			<tr>
+
+				<td colspan="3" align="center">
+					<input type="button"
+					value="next" class="btn-lg btn-primary btn-block" id="nextBtn"
+					needToCheckAnswer="true" 
+					onclick="$(this).nextQuestion();" /> &nbsp; 
+					<input type="button"
+					value="skip" class="btn-lg btn-primary btn-block" id="nextBtn"
+					needToCheckAnswer="false" 
+					onclick="$(this).nextQuestion();" /> &nbsp; 
+					<input
+					class="btn-lg btn-primary btn-block" type="button" value="clear"
+					onclick="$(this).clearAnswer();" id="clearBtn" /> &nbsp; <input
+					class="btn-lg btn-primary btn-block" type="button" value="show"
+					onclick="$(this).showAnswer();" id="showBtn" /></td>
+
+			</tr>
+			
+			<tr>
+				<td colspan="3">&nbsp;</td>
+
+			</tr>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+
+			</tr>
+			<tr>
+				<td colspan="3" align="center">
+				<a href="mailto:zumair4job@gmail.com">contact me</a>
+				&nbsp;
+				<a href="http://au.linkedin.com/in/zohaibumair">linked in</a>
+				</td>
+			</tr>
+			
+						<tr>
+				<td colspan="3">&nbsp;</td>
+
+			</tr>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+
+			</tr>
+			
+		</table>
+	</div>
+</body>
+</html>
